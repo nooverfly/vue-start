@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>起步</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>site:{{site}}</h1>
+    <h1>url: {{url}}</h1>
+    <h1>{{details()}}</h1>
+</div>
+<div id="vue_det">
+    <h1>site : {{site}}</h1>
+    <h1>url : {{url}}</h1>
+    <h1>Alexa : {{alexa}}</h1>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            site:'菜鸟教程',
+            url:'www.runoob.com',
+            alexa:'10000'
+        },
+        methods: {
+            details: function () {
+                return this.site + " - 学的不仅是技术，更是梦想！";
+            }
+        }
+    });
+    var data = {site: "菜鸟教程", url: "www.runoob.com", alexa: 10000};
+    var vm = new Vue({
+        el:"#vue_det",
+        data: data
+    });
+    //引用相同的对象
+    console.log(vm.alexa === data.alexa);
+    //设置属性也会影响到原始数据
+    vm.site = "Runoob";
+    //反之亦然
+    data.alexa = 1234;
+    console.log(vm.$data === data);
+    console.log(vm.$el === document.getElementById("vue_det"));
+</script>
+</body>
+</html>

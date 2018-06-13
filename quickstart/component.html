@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.js组件</title>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <runoob></runoob>
+    <mycomp></mycomp>
+    <child message="hello!"></child>
+    <div>
+        <input v-model="parentMsg">
+        <br>
+        <dynamicprop v-bind:message="parentMsg"></dynamicprop>
+    </div>
+    <ol>
+        <todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+    </ol>
+</div>
+<script>
+    //全局组件
+    Vue.component('runoob',{
+        template: '<h1>自定义组件!</h1>'
+    });
+    var Child = {
+        template: '<h1>我的组件!</h1>'
+    };
+    Vue.component('child',{
+        // 声明 props
+        props: ['message'],
+        // 同样也可以在 vm 实例中像 "this.message" 这样使用
+        template: '<span>{{ message }}</span>'
+    });
+    Vue.component("dynamicprop",{
+        // 声明 props
+        props: ['message'],
+        // 同样也可以在 vm 实例中像 "this.message" 这样使用
+        template: '<span>{{ message }}</span>'
+    });
+    Vue.component("todo-item",{
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+    // 创建根实例
+    new Vue({
+        el: '#app',
+        data: {
+            parentMsg: "父组件内容",
+            sites: [
+                { text: 'Runoob' },
+                { text: 'Google' },
+                { text: 'Taobao' }
+            ]
+        },
+        //局部组件
+        components: {
+            // <runoob> 将只在父模板可用
+            'mycomp': Child
+        }
+    });
+
+</script>
+</body>
+</html>
